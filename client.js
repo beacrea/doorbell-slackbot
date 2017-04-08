@@ -1,8 +1,9 @@
+const path = require("path");
 const fs = require("fs");
 const net = require("net");
 const spawn = require('child_process').spawn;
 
-const AUDIO_DIR = "/Users/jay/Desktop/mp3";
+const AUDIO_DIR = path.resolve("./audio");
 
 function Client(host, port) {
   this.host = host;
