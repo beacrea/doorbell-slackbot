@@ -32,6 +32,8 @@ Client.prototype = {
 
     console.log("Playing! " + filePath);
 
+    // afplay for macs
+    // mplayer for linux
     const playerChildProcess = spawn('mplayer', [filePath]);
     playerChildProcess.on("end", () => {
       console.log("Done playing " + filePath);
@@ -39,7 +41,6 @@ Client.prototype = {
   }
 };
 
-const client = new Client("127.0.0.1", 1234);
+const client = new Client("45.55.33.73", 1234);
 
 client.autoConnect();
-
