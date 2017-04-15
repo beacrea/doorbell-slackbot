@@ -1,5 +1,5 @@
-const net = require("net");
-const request = require("request");
+const express = require('express');
+const app = express();
 
 const SERVER_PORT = 1234;
 
@@ -8,22 +8,34 @@ const FILES = {
   FAIL: "inception.mp3"
 };
 
-// Just temporary
-function delay(fn) {
-  setTimeout(fn, 1000);
-}
-
-const PiPlayer = net.createServer(client => {
-  if(request.method === "POST") {
-    console.log("Got new connection from ", client);
-    delay(() => {
-      client.write(FILES.PASS);
-    });
-  }
+app.get('/', function (req, res) {
+  res.send('This is a GET!');
 });
 
-PiPlayer.listen(SERVER_PORT);
-
-PiPlayer.on("error", error => {
-  console.error("Got error: " + error.toString());
+app.post('/', function (req, res) {
+  res.send('This is a POST!');
 });
+
+app.listen(SERVER_PORT, function () {
+  console.log('Example app listening on port' + SERVER_PORT + '!')
+});
+
+// // Just temporary
+// function delay(fn) {
+//   setTimeout(fn, 1000);
+// }
+//
+// const PiPlayer = net.createServer(client => {
+//   if(request.method === "POST") {
+//     console.log("Got new connection from ", client);
+//     delay(() => {
+//       client.write(FILES.PASS);
+//     });
+//   }
+// });
+//
+// PiPlayer.listen(SERVER_PORT);
+//
+// PiPlayer.on("error", error => {
+//   console.error("Got error: " + error.toString());
+// });
