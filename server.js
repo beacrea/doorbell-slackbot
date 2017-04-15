@@ -14,11 +14,6 @@ function delay(fn) {
   setTimeout(fn, 1000);
 }
 
-PiPlayer.on("error", error => {
-  console.error("Got error: " + error.toString());
-});
-
-
 app.post('/', function (req, res) {
   const PiPlayer = net.createServer(client => {
     console.log("Got new connection from ", client);
@@ -28,5 +23,9 @@ app.post('/', function (req, res) {
   });
 
   PiPlayer.listen(SERVER_PORT);
+
+  PiPlayer.on("error", error => {
+    console.error("Got error: " + error.toString());
+  });
   res.send('POST request to the homepage')
 });
