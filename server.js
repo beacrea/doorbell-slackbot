@@ -18,6 +18,7 @@ app.get('/', function (req, res) {
 app.post('/', function (req, res) {
   doorBellActive = true;
   console.log('Doorbell status: ' + doorBellActive);
+  res.send("Got your POST request!");
   // setTimeout(function() {
   //   doorBellActive = false;
   //   console.log('Doorbell status: ' + doorBellActive);
