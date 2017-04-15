@@ -18,10 +18,10 @@ app.get('/', function (req, res) {
 app.post('/', function (req, res) {
   doorBellActive = true;
   console.log('Doorbell status: ' + doorBellActive);
-  setTimeout(function() {
-    doorBellActive = false;
-    console.log('Doorbell status: ' + doorBellActive);
-    }, 6000);
+  // setTimeout(function() {
+  //   doorBellActive = false;
+  //   console.log('Doorbell status: ' + doorBellActive);
+  //   }, 6000);
 });
 
 app.listen(SERVER_PORT, function () {
