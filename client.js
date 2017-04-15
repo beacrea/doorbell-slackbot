@@ -25,7 +25,7 @@ function playFile(fileName) {
 
   // afplay for macs
   // mplayer for linux
-  const playerChildProcess = spawn('afplay', [filePath]);
+  const playerChildProcess = spawn('mplayer', [filePath]);
   playerChildProcess.on("end", () => {
     console.log("Done playing " + filePath);
   });
