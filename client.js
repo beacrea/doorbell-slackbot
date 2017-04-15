@@ -34,7 +34,7 @@ Client.prototype = {
 
     // afplay for macs
     // mplayer for linux
-    const playerChildProcess = spawn('mplayer', [filePath]);
+    const playerChildProcess = spawn('afplay', [filePath]);
     playerChildProcess.on("end", () => {
       console.log("Done playing " + filePath);
     });
