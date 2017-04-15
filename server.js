@@ -13,11 +13,11 @@ app.get('/', function (req, res) {
 });
 
 app.post('/', function (req, res) {
-  res.send('This is a POST!');
+  res.send(FILES.PASS);
 });
 
 app.listen(SERVER_PORT, function () {
-  console.log('Example app listening on port' + SERVER_PORT + '!')
+  console.log('Example app listening on port ' + SERVER_PORT + '!')
 });
 
 // // Just temporary
