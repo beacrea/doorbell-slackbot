@@ -3,7 +3,7 @@ const net = require("net");
 const SERVER_PORT = 1234;
 
 const FILES = {
-  PASS: "acceptable.mp3",
+  PASS: "meseeks.mp3",
   FAIL: "unacceptable.mp3"
 };
 
@@ -14,7 +14,7 @@ function delay(fn) {
 
 const PiPlayer = net.createServer(client => {
   console.log("Got new connection from ", client);
-  delay(() => { 
+  delay(() => {
     client.write(FILES.PASS);
   });
 });
