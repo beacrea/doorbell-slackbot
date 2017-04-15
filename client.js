@@ -1,3 +1,5 @@
+'use strict';
+
 const request = require('request');
 const spawn = require('child_process').spawn;
 const path = require("path");
