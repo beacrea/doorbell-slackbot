@@ -4,7 +4,7 @@ const SERVER_PORT = 1234;
 
 const FILES = {
   PASS: "meseeks.mp3",
-  FAIL: "unacceptable.mp3"
+  FAIL: "inception.mp3"
 };
 
 // Just temporary
