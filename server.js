@@ -13,10 +13,12 @@ function delay(fn) {
 }
 
 const PiPlayer = net.createServer(client => {
-  console.log("Got new connection from ", client);
-  delay(() => {
-    client.write(FILES.PASS);
-  });
+  if(request.method === "POST") {
+    console.log("Got new connection from ", client);
+    delay(() => {
+      client.write(FILES.PASS);
+    });
+  }
 });
 
 PiPlayer.listen(SERVER_PORT);
