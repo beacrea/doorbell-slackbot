@@ -10,9 +10,7 @@ const FILES = {
 };
 
 app.get('/', function (req, res) {
-  if (doorBellActive == true) {
-    res.send(FILES.PASS);
-  }
+  res.send(FILES.PASS);
 });
 
 app.post('/', function (req, res) {
