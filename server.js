@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 
 const SERVER_PORT = 1234;
+let doorBellActive = false;
 
 const FILES = {
   PASS: "meseeks.mp3",
@@ -9,11 +10,18 @@ const FILES = {
 };
 
 app.get('/', function (req, res) {
-  res.send('This is a GET!');
+  if (doorBellActive === true) {
+    res.send(FILES.PASS);
+  }
 });
 
 app.post('/', function (req, res) {
-  res.send(FILES.PASS);
+  doorBellActive = true;
+  console.log('Doorbell status: ' + doorBellActive);
+  setTimeout(function() {
+    doorBellActive = false;
+    console.log('Doorbell status: ' + doorBellActive);
+    }, 6000);
 });
 
 app.listen(SERVER_PORT, function () {
