@@ -37,13 +37,12 @@ Client.prototype = {
     const playerChildProcess = spawn('mplayer', [filePath]);
     playerChildProcess.on("end", () => {
       console.log("Done playing " + filePath);
+      resolve();
     });
   }
 };
 
-function pingForDayz() {
+setInterval(function(){
   const client = new Client("45.55.33.73", 1234);
   client.autoConnect();
-}
-
-pingForDayz();
+}, 5000);
