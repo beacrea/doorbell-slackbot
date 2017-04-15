@@ -1,54 +1,47 @@
+const request = require('request');
+const spawn = require('child_process').spawn;
 const path = require("path");
 const fs = require("fs");
-const net = require("net");
-const spawn = require('child_process').spawn;
 
+const SERVER = {
+  HOST: '45.55.33.73',
+  PORT: '1234'
+}
 const AUDIO_DIR = path.resolve("./audio");
+const SERVER_FULL = 'http://' + SERVER.HOST + ':' + SERVER.PORT;
 
-function Client(host, port) {
-  this.host = host;
-  this.port = port;
+let body = [];
+
+// File Playing Function
+function playFile(fileName) {
+  const filePath = AUDIO_DIR + "/" + fileName;
+
+  if(!fs.existsSync(filePath)) {
+    console.log("File does not exist: " + filePath);
+    return false;
+  }
+
+  console.log("Playing! " + filePath);
+
+  // afplay for macs
+  // mplayer for linux
+  const playerChildProcess = spawn('afplay', [filePath]);
+  playerChildProcess.on("end", () => {
+    console.log("Done playing " + filePath);
+  });
 }
 
-Client.prototype = {
-  autoConnect() {
-    this.connect();
-  },
-
-  connect() {
-    return new Promise((resolve, reject) => {
-      this.connection = net.connect(this.port, this.host);
-      this.connection.on("data", buffer => this.playFile(buffer.toString().trim()));
-      this.connection.on('error', function(err) {
-        console.log('No trigger from server. Retrying in 5 sec.');
-      });
-      this.connection.on("end", () => {
-        console.log('Disconnected from server');
-      });
-    });
-  },
-
-  playFile(fileName) {
-    const filePath = AUDIO_DIR + "/" + fileName;
-
-    if(!fs.existsSync(filePath)) {
-      console.log("File does not exist: " + filePath);
-      return false;
-    }
-
-    console.log("Playing! " + filePath);
-
-    // afplay for macs
-    // mplayer for linux
-    const playerChildProcess = spawn('mplayer', [filePath]);
-    playerChildProcess.on("end", () => {
-      console.log("Done playing " + filePath);
-      resolve();
-    });
-  }
-};
-
+// Make Server Request Every 5 Seconds
 setInterval(function(){
-  const client = new Client("45.55.33.73", 1234);
-  client.autoConnect();
+  request
+    .get(SERVER_FULL)
+    .on('data', function(chunk) {
+      body.push(chunk);
+    }).on('end', function() {
+      body = Buffer.concat(body).toString();
+      console.log('Received response of: ' + body);
+      playFile(body);
+      body = [];
+      // at this point, `body` has the entire request body stored in it as a string
+    });
 }, 5000);
