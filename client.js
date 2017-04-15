@@ -41,6 +41,9 @@ Client.prototype = {
   }
 };
 
-const client = new Client("45.55.33.73", 1234);
+function pingForDayz() {
+  const client = new Client("45.55.33.73", 1234);
+  client.autoConnect();
+}
 
-client.autoConnect();
+pingForDayz();
