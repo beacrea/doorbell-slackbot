@@ -14,18 +14,18 @@ function delay(fn) {
   setTimeout(fn, 1000);
 }
 
+const PiPlayer = net.createServer(client => {
+});
+
+PiPlayer.on("error", error => {
+  console.error("Got error: " + error.toString());
+});
+
+PiPlayer.listen(SERVER_PORT);
+
 app.post('/', function (req, res) {
-  const PiPlayer = net.createServer(client => {
-    console.log("Got new connection from ", client);
-    delay(() => {
-      client.write(FILES.PASS);
-    });
+  res.send('POST request to the homepage', clent);
+  delay(() => {
+    client.write(FILES.PASS);
   });
-
-  PiPlayer.listen(SERVER_PORT);
-
-  PiPlayer.on("error", error => {
-    console.error("Got error: " + error.toString());
-  });
-  res.send('POST request to the homepage')
 });
