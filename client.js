@@ -20,7 +20,7 @@ Client.prototype = {
       this.connection = net.connect(this.port, this.host);
       this.connection.on("data", buffer => this.playFile(buffer.toString().trim()));
       this.connection.on('error', function(err) {
-        console.log('No trigger from server. Retrying in 5sec.');
+        console.log('No trigger from server. Retrying in 5 sec.');
       });
       this.connection.on("end", () => {
         console.log('Disconnected from server');
