@@ -10,7 +10,7 @@ const FILES = {
 };
 
 app.get('/', function (req, res) {
-  if (doorBellActive === true) {
+  if (doorBellActive == true) {
     res.send(FILES.PASS);
   }
 });
