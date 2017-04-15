@@ -1,4 +1,6 @@
 const net = require("net");
+const express = require('express');
+const app = express();
 
 const SERVER_PORT = 1234;
 
@@ -12,15 +14,19 @@ function delay(fn) {
   setTimeout(fn, 1000);
 }
 
-const PiPlayer = net.createServer(client => {
-  console.log("Got new connection from ", client);
-  delay(() => {
-    client.write(FILES.PASS);
-  });
-});
-
-PiPlayer.listen(SERVER_PORT);
-
 PiPlayer.on("error", error => {
   console.error("Got error: " + error.toString());
+});
+
+
+app.post('/', function (req, res) {
+  const PiPlayer = net.createServer(client => {
+    console.log("Got new connection from ", client);
+    delay(() => {
+      client.write(FILES.PASS);
+    });
+  });
+
+  PiPlayer.listen(SERVER_PORT);
+  res.send('POST request to the homepage')
 });
