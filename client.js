@@ -19,6 +19,12 @@ Client.prototype = {
     return new Promise((resolve, reject) => {
       this.connection = net.connect(this.port, this.host);
       this.connection.on("data", buffer => this.playFile(buffer.toString().trim()));
+      this.connection.on('error', function(err) {
+        console.log('Connection refused. Retrying in 5sec.');
+      });
+      this.connection.on("end", () => {
+        console.log('Disconnected from server');
+      });
     });
   },
 

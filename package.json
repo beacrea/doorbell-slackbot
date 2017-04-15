@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "main": "server.js",
   "repository": "git@github.com:neighborly/pi-player.git",
-  "author": "Neighborly Corporation <dev@neighborly.com>",
+  "author": "Coty Beasley <coty@cotybeasley.name>",
   "license": "UNLICENSED",
   "dependencies": {
     "express": "^4.15.2",
