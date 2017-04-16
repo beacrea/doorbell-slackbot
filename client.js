@@ -8,7 +8,7 @@ const fs = require("fs");
 const SERVER = {
   HOST: '45.55.33.73',
   PORT: '1234'
-}
+};
 const AUDIO_DIR = path.resolve("./audio");
 const SERVER_FULL = 'http://' + SERVER.HOST + ':' + SERVER.PORT;
 
@@ -27,7 +27,7 @@ function playFile(fileName) {
 
   // afplay for macs
   // mplayer for linux
-  const playerChildProcess = spawn('mplayer', [filePath]);
+  spawn('mplayer', [filePath]);
 }
 
 // Make Server Request Every 5 Seconds
