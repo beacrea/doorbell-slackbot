@@ -28,9 +28,6 @@ function playFile(fileName) {
   // afplay for macs
   // mplayer for linux
   const playerChildProcess = spawn('mplayer', [filePath]);
-  ChildProcess.on("close", () => {
-    console.log("Done playing " + filePath);
-  });
 }
 
 // Make Server Request Every 5 Seconds
