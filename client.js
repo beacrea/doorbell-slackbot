@@ -1,13 +1,13 @@
 'use strict';
 
 const request = require('request');
-const exec = require('child_process').exec;
 const path = require("path");
 const fs = require("fs");
+const player = require('play-sound')();
 
 const SERVER = {
-  HOST: '45.55.33.73',
-  PORT: '1234'
+    HOST: '45.55.33.73',
+    PORT: '1234'
 };
 const AUDIO_DIR = path.resolve("./audio");
 const SERVER_FULL = 'http://' + SERVER.HOST + ':' + SERVER.PORT;
@@ -16,42 +16,35 @@ let body = [];
 
 // File Playing Function
 function playFile(fileName) {
-  const filePath = AUDIO_DIR + "/" + fileName;
+    const filePath = AUDIO_DIR + "/" + fileName;
 
-  if(!fs.existsSync(filePath)) {
-    console.log("File does not exist: " + filePath);
-    return false;
-  }
+    if(!fs.existsSync(filePath)) {
+        console.log("File does not exist: " + filePath);
+        return false;
+    }
 
-  console.log("Playing! " + filePath);
-
-  // afplay for macs
-  // mplayer for linux
-  exec('mplayer ' + filePath, (error, stdout, stderr) => {
-      if (error) {
-          console.error(`exec error: ${error}`);
-          return;
-      }
-      console.log(`stdout: ${stdout}`);
-      console.log(`stderr: ${stderr}`);
-  });
+    // Via http://thisdavej.com/node-js-playing-sounds-to-provide-notifications/
+    player.play(filePath, (err) => {
+        console.log("Finished playing: " + filePath);
+        if (err) console.log(`Could not play sound: ${err}`);
+    });
 }
 
 // Make Server Request Every 5 Seconds
 setInterval(function(){
-  request
-    .get(SERVER_FULL)
-    .on('data', function(chunk) {
-      body.push(chunk);
-    })
-    .on('end', function() {
-      body = Buffer.concat(body).toString();
-      console.log('Received response of: ' + body);
-      playFile(body);
-      body = [];
-      // at this point, `body` has the entire request body stored in it as a string
-    })
-      .on('error', function () {
-          console.log('No trigger from server. Retrying in 5 seconds.');
-      });
+    request
+        .get(SERVER_FULL)
+        .on('data', function(chunk) {
+            body.push(chunk);
+        })
+        .on('end', function() {
+            body = Buffer.concat(body).toString();
+            console.log('Received response of: ' + body);
+            playFile(body);
+            body = [];
+            // at this point, `body` has the entire request body stored in it as a string
+        })
+        .on('error', function () {
+            console.log('No trigger from server. Retrying in 5 seconds.');
+        });
 }, 5000);
