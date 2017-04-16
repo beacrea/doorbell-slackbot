@@ -6,7 +6,7 @@ const fs = require("fs");
 const player = require('play-sound')();
 
 const SERVER = {
-    HOST: '45.55.33.73',
+    HOST: '138.68.2.51',
     PORT: '1234'
 };
 const AUDIO_DIR = path.resolve("./audio");
