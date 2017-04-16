@@ -1,7 +1,7 @@
 'use strict';
 
 const request = require('request');
-const spawn = require('child_process').execSync;
+const exec = require('child_process').exec;
 const path = require("path");
 const fs = require("fs");
 
@@ -27,7 +27,14 @@ function playFile(fileName) {
 
   // afplay for macs
   // mplayer for linux
-  spawn('mplayer', [filePath]);
+  exec('mplayer ' + filePath, (error, stdout, stderr) => {
+      if (error) {
+          console.error(`exec error: ${error}`);
+          return;
+      }
+      console.log(`stdout: ${stdout}`);
+      console.log(`stderr: ${stderr}`);
+  });
 }
 
 // Make Server Request Every 5 Seconds
