@@ -1,7 +1,7 @@
 'use strict';
 
 const request = require('request');
-const spawn = require('child_process').spawn;
+const spawn = require('child_process').execSync;
 const path = require("path");
 const fs = require("fs");
 
