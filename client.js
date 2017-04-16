@@ -24,10 +24,12 @@ function playFile(fileName) {
     }
 
     // Via http://thisdavej.com/node-js-playing-sounds-to-provide-notifications/
-    player.play(filePath, (err) => {
-        console.log("Finished playing: " + filePath);
-        if (err) console.log(`Could not play sound: ${err}`);
-    });
+    setTimeout(function() {
+        player.play(filePath, (err) => {
+            console.log("Finished playing: " + filePath);
+            if (err) console.log(`Could not play sound: ${err}`);
+        });
+    }, 3000)
 }
 
 // Make Server Request Every 5 Seconds
