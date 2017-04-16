@@ -43,11 +43,15 @@ setInterval(function(){
     .get(SERVER_FULL)
     .on('data', function(chunk) {
       body.push(chunk);
-    }).on('end', function() {
+    })
+    .on('end', function() {
       body = Buffer.concat(body).toString();
       console.log('Received response of: ' + body);
       playFile(body);
       body = [];
       // at this point, `body` has the entire request body stored in it as a string
-    });
+    })
+      .on('error', function () {
+          console.log('No trigger from server. Retrying in 5 seconds.');
+      });
 }, 5000);
