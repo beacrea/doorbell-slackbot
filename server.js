@@ -5,7 +5,7 @@ const SERVER_PORT = 1234;
 let doorBellActive = false;
 
 const FILES = {
-  PASS: "meseeks.mp3",
+  PASS: "meseeks2.mp3",
   FAIL: "inception.mp3"
 };
 
