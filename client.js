@@ -24,7 +24,7 @@ function playFile(fileName) {
     }
 
     // Via http://thisdavej.com/node-js-playing-sounds-to-provide-notifications/
-    player.play(filePath, { timeout: 5000 }, function(err){
+    player.play(filePath, { timeout: 8000 }, function(err){
         if (err) throw err
     });
 
